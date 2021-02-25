@@ -1,0 +1,61 @@
+{block content}
+  {form registrationForm}
+    <div class="d-flex justify-content-center form pt-3 pb-3">
+      <div class="col-md-6">
+        <div class="card bg-gray-light">
+          <div class="card-header bg-primary"><span class="panel-title text-light">Registrace do systému DUMMY</span></div>
+          <div class="card-body d-flex justify-content-center">
+            <div class="row col-md-12 d-flex">
+              <div class="col-md-4 form-group pt-2 font-weight-bold"><p>{label first_name /}</p></div>
+              <div class="col-md-8 form-group pb-3">{input first_name class => 'form-control'}</div>
+              <div class="col-md-4 form-group pt-2 font-weight-bold">{label last_name /}</div>
+              <div class="col-md-8 form-group pb-3">{input last_name class => 'form-control'}</div>
+              <div class="col-md-4 form-group pt-2 font-weight-bold">{label email /}</div>
+              <div class="col-md-8 form-group pb-3">{input email class => 'form-control'}</div>
+              <div class="col-md-4 form-group pt-2 font-weight-bold">{label passwd /}</div>
+              <div class="col-md-8 form-group pb-3">{input passwd class => 'form-control'}</div>
+              <div class="col-md-4 form-group pt-2 font-weight-bold">{label passwd_verify /}</div>
+              <div class="col-md-8 form-group pb-3">{input passwd_verify class => 'form-control'}</div>
+              <div class="col-md-12 form-check pb-3 ">
+                <input name="show_passwd" class="form-check-input" type="checkbox" value="" id="showPasswd">
+                <label class="form-check-label" for="flexCheck">
+                  Zobrazit heslo
+                </label>
+              </div>
+              <div class="col-md-12 form-check pb-3 ">
+                <input n:name="agree_with_terms" class="form-check-input" type="checkbox"  id="flexCheck">
+                <label class="form-check-label" for="flexCheck">
+                  {$form['agree_with_terms']->caption}
+                </label>
+              </div>
+              <div class="col-md-12 pb-3 ">
+                {input submit class=>"btn btn-primary btn-block col-md-12"}
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script>
+       $(document).ready(function () {
+            $(document).on('change', '#showPasswd', function () {
+                if ($(this).prop('checked')) {
+                    $("#frm-registrationForm-passwd").attr('type', 'text');
+                    $("#frm-registrationForm-passwd_verify").attr('type', 'text');
+                } else {
+                    $("#frm-registrationForm-passwd").attr('type', 'password');
+                    $("#frm-registrationForm-passwd_verify").attr('type', 'password');
+                }
+            });
+        });
+    </script>
+  {/form}
+{/block}
+
+
+
