@@ -1,17 +1,21 @@
 <?php
 
-namespace App\PublicModule\presenters;
+namespace App\components\formRegistration;
 
+use App\components\BaseComponent;
 use App\model\Constants;
-use App\Presenters\BasePresenter;
-use Nette;
-use Nette\Application\UI\Form;
+use Nette\Application\AbortException;
+use \Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
 
-Class RegistrationPresenter extends BasePresenter
-{
-  /**
-   * @return Form
-   */
+
+class formRegistration extends BaseComponent {
+  
+  public function render() : void {
+    $this->template->setFile(__DIR__ . '/formRegistration.latte');
+    $this->template->render();
+  }
+  
   public function createComponentRegistrationForm() : Form {
     $form = new Form();
     $form->addText('first_name', 'Jméno:')
@@ -41,48 +45,14 @@ Class RegistrationPresenter extends BasePresenter
   
   /**
    * @param Form $form
-   * @param Nette\Utils\ArrayHash $values
-   * @throws Nette\Application\AbortException
+   * @param ArrayHash $values
    */
-  public function registrationFormSucceed(Form $form, Nette\Utils\ArrayHash $values): void {
+  public function registrationFormSucceed(Form $form, ArrayHash $values): void {
     try {
       $this->userModel->newUser($values);
-      $this->flashMessage('Registrace proběhla úspešně.');
+      $this->presenter->flashMessage('Registrace proběhla úspešně.');
     } catch (\Exception $e) {
-      $this->flashMessage('Neúspešná registrace');
-      $this->redirect('this');
+      $this->presenter->flashMessage('Neúspešná registrace');
     }
-   $this->redirect('Registration:login');
-  }
-  
-  
-  /**
-   * @return Form
-   */
-  public function createComponentLoginForm() : Form {
-    $form = new Form();
-    $form->addEmail('email', 'Email:')
-      ->setRequired('email: '. Constants::FORM_MSG_REQUIRED);
-    $form->addPassword('passwd', 'Heslo:')
-      ->setRequired('heslo: ' . Constants::FORM_MSG_REQUIRED);
-    $form->addSubmit('submit', 'Přihlásít');
-    $form->onSuccess[] = [$this, 'loginFormSucceeded'];
-    return $form;
-  }
-  
-  /**
-   * @param Form $form
-   * @param Nette\Utils\ArrayHash $values
-   * @throws Nette\Application\AbortException
-   */
-  public function loginFormSucceeded(Form $form, Nette\Utils\ArrayHash $values) : void {
-    try {
-      $this->getUser()->login($values->email, $values->passwd);
-      $this->flashMessage('Byl jste úspěšně přihlášen.');
-    } catch (\Exception $e) {
-      $this->flashMessage($e->getMessage());
-    }
-    $this->redirect(':Sys:Homepage:default');
-  
   }
 }

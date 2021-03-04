@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Presenters;
+use App\components\formLogin\formLogin;
+use App\components\formRegistration\formRegistration;
 use App\model\UserModel;
 use Nette\Application\UI\Presenter;
 use Nette\DI\Container;
@@ -43,5 +45,12 @@ abstract class BasePresenter extends Presenter {
     }
     $this->flashMessage('Úspěšně smazáno', 'success');
     $this->redirect('this');
+  }
+  
+  public function createComponentFormLoginControl(): formLogin {
+    return new formLogin($this->presenter, $this->container, $this->user);
+  }
+  public function createComponentFormRegistrationControl(): formRegistration {
+    return new formRegistration($this->presenter, $this->container, $this->user);
   }
 }

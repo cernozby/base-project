@@ -60,10 +60,10 @@
 			<div class="d-flex">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a class="nav-link text-white" n:href="Registration:login">Přihlášení</a>
+						<a class="nav-link text-white" n:href="Login!">Přihlášení</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-white" n:href="Registration:registration">Registrace</a>
+						<a class="nav-link text-white" n:href="Registration!">Registrace</a>
 					</li>
 				</ul>
 			</div>
@@ -84,6 +84,14 @@
 		<!-- Copyright -->
 	</footer>
 
+
+	<!-- modals -->
+{if isset($loginForm)}
+	{control formLoginControl}
+{/if}
+{if isset($registrationForm)}
+	{control formRegistrationControl}
+{/if}
 
 	{block scripts}
 
