@@ -20,13 +20,10 @@ di:
 services:
 	router: App\Router\RouterFactory::createRouter
 	authenticator: App\model\UserManager
-	BaseModel:
-	    class: App\model\BaseModel
 	userModel:
 	    class: App\model\UserModel
-	BaseFactory:
-	    class: App\model\BaseFactory
-
+	userClass:
+	    class: App\model\userClass
 search:
     model:
         in: %appDir%\model
