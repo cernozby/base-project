@@ -1,5 +1,9 @@
 <?php
 namespace App\model;
+/**
+ * Class Constants
+ * @package App\model
+ */
 class Constants
 {
   public static $user = array(

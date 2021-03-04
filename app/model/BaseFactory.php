@@ -9,6 +9,10 @@ use Nette\Database\Table\Selection;
 use Nette\DI\Container;
 use PDOException;
 
+/**
+ * Class BaseFactory
+ * @package App\model
+ */
 Class BaseFactory extends BaseModel {
   
   /**
@@ -19,10 +23,6 @@ Class BaseFactory extends BaseModel {
    * @var
    */
   public $id;
-  /**
-   * @var
-   */
-  public $table;
   /**
    * @var string
    */

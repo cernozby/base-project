@@ -27,6 +27,11 @@ class BaseModel {
    */
   public $linkGenerator;
   
+  /**
+   * @var
+   */
+  public $table;
+  
   
   /**
    *
@@ -42,6 +47,16 @@ class BaseModel {
   }
   
   
+  /**
+   * @param $typeOfEmail
+   * @param $params
+   * @param $toEmail
+   * @param $subject
+   * @param null $attachments
+   * @param null $subjectPrefix
+   * @param null $attachmentsNames
+   * @return mixed
+   */
   public function sendMail($typeOfEmail, $params, $toEmail, $subject, $attachments = null, $subjectPrefix = null, $attachmentsNames = null) {
     if ($subjectPrefix) {
       $subject = sprintf('[%s] %s', $subjectPrefix, $subject);
@@ -99,7 +114,7 @@ class BaseModel {
    * @return array|null
    */
   public function getAllFromOneColumn(string $column) : array {
-    return $this->getTable()->select($column)->fetchAll() ? : [];
+    return $this->getTable()->select($column)->fetchPairs(null, $column) ? : [];
   }
   
   /**
@@ -110,6 +125,11 @@ class BaseModel {
     return $this->getTable()->select($columns)->fetchAll();
   }
   
+  /**
+   * @param string $column
+   * @param string $value
+   * @return bool
+   */
   public function existInColumn(string $column, string $value) : bool {
     return $this->db->table($this->table)->where($column.' = ?', $value)->fetch() ? true : false;
   }
