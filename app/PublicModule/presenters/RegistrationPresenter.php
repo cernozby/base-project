@@ -9,6 +9,9 @@ use Nette\Application\UI\Form;
 
 Class RegistrationPresenter extends BasePresenter
 {
+  /**
+   * @return Form
+   */
   public function createComponentRegistrationForm() : Form {
     $form = new Form();
     $form->addText('first_name', 'Jméno:')
@@ -20,7 +23,7 @@ Class RegistrationPresenter extends BasePresenter
     $form->addEmail('email', 'Email:')
       ->setRequired('email: '. Constants::FORM_MSG_REQUIRED)
       ->addRule(FORM::EMAIL, Constants::FORM_VALID_EMAIL)
-      ->addRule(FORM::IS_NOT_IN,Constants::FORM_EMAIL_UNIQ, $this->userModel->getAllEmails());
+      ->addRule(FORM::IS_NOT_IN,Constants::FORM_EMAIL_UNIQ, $this->userModel->getAllFromOneColumn('email'));
     $form->addPassword('passwd', 'Heslo:')
       ->setRequired('heslo: ' . Constants::FORM_MSG_REQUIRED)
       ->addRule(FORM::LENGTH, Constants::FORM_LENGHT_PASSWD, [5, 40]);
@@ -35,7 +38,12 @@ Class RegistrationPresenter extends BasePresenter
     $form->onSuccess[] = [$this, 'registrationFormSucceed'];
     return $form;
   }
-
+  
+  /**
+   * @param Form $form
+   * @param Nette\Utils\ArrayHash $values
+   * @throws Nette\Application\AbortException
+   */
   public function registrationFormSucceed(Form $form, Nette\Utils\ArrayHash $values): void {
     try {
       $this->userModel->newUser($values);
@@ -47,7 +55,10 @@ Class RegistrationPresenter extends BasePresenter
    $this->redirect('Registration:login');
   }
   
-
+  
+  /**
+   * @return Form
+   */
   public function createComponentLoginForm() : Form {
     $form = new Form();
     $form->addEmail('email', 'Email:')
@@ -59,6 +70,11 @@ Class RegistrationPresenter extends BasePresenter
     return $form;
   }
   
+  /**
+   * @param Form $form
+   * @param Nette\Utils\ArrayHash $values
+   * @throws Nette\Application\AbortException
+   */
   public function loginFormSucceeded(Form $form, Nette\Utils\ArrayHash $values) : void {
     try {
       $this->getUser()->login($values->email, $values->passwd);

@@ -1,11 +1,18 @@
 <?php
 namespace App\model;
+/**
+ * Class Constants
+ * @package App\model
+ */
 class Constants
 {
   public static $user = array(
-    0 => 'user',
-    1 => 'admin'
+    self::USER_USER => 'user',
+    self::USER_ADMIN => 'admin'
   );
+  
+  const USER_USER = 0;
+  const USER_ADMIN = 1;
   
   const FORM_MSG_REQUIRED = "toto pole je povinné";
   const FORM_SHORT_PASSWD = "Vaše heslo musí mít alespon %d znaků!";

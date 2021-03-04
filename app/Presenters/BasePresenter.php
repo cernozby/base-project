@@ -16,10 +16,13 @@ abstract class BasePresenter extends Presenter {
    * @var Container
    */
   public $container;
+  
   /**
    * @var UserModel
    */
   public $userModel;
+  
+  public $userClass;
   
   
   public function __construct(Container $container, UserModel $userModel) {
@@ -27,15 +30,12 @@ abstract class BasePresenter extends Presenter {
     $this->userModel = $userModel;
     parent::__construct();
   }
-  
-  /*public function startup() : void {
-    parent::startup();
-  }*/
 
+  
   public function handleDeleteItem($type, $id) {
 
     try {
-      $instance = $this->context->createInstance($type);
+      $instance = $this->context->createService($type);
       $instance->initId($id);
       $instance->delete();
     } catch (Exception $e) {
