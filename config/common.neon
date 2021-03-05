@@ -1,6 +1,3 @@
-parameters:
-
-
 application:
 	errorPresenter: Error
 	mapping:

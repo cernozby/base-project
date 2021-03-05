@@ -22,9 +22,11 @@
 		"tracy/tracy": "^2.8",
 		"php-kit/ext-pdo": "^1.1",
 		"ext-pdo": "*",
-		"twbs/bootstrap": "5.0.0-beta1"
+		"twbs/bootstrap": "4.6.0"
 	},
 	"require-dev": {
+		"roave/security-advisories": "dev-master"
+		,
 		"nette/tester": "^2.3",
 		"symfony/thanks": "^1"
 	},

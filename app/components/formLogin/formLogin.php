@@ -41,6 +41,7 @@ class formLogin extends BaseComponent {
       $this->presenter->flashMessage('Byl jste úspěšně přihlášen.');
     } catch (\Exception $e) {
       $this->presenter->flashMessage($e->getMessage());
+      $this->redirect('this', ['do' => 'Login']);
     }
     $this->presenter->redirect(':Sys:Homepage:default');
     
